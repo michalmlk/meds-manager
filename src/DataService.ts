@@ -15,4 +15,14 @@ export class DataService {
         });
         return data;
     }
+
+    async getLocations() {
+        const data: Array<DocumentData> = [];
+        const querySnapshot = await getDocs(collection(this.db, 'locations'));
+        querySnapshot.forEach((q) => {
+            const item = q.data();
+            data.push(item);
+        });
+        return data;
+    }
 }

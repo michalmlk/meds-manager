@@ -1,0 +1,22 @@
+.button {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    &.primary {
+        background-color: var(--color-accent-green);
+    }
+
+    &.secondary {
+        background-color: var(--color-accent-blue);
+    }
+
+    &.danger {
+        background-color: var(--color-danger);
+    }
+}

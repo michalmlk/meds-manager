@@ -1,25 +1,11 @@
-import { useEffect, useState } from 'react';
-import { DataService } from './DataService.ts';
-import { DocumentData } from 'firebase/firestore';
-import './App.css';
+import classes from './App.module.scss';
+import LocationView from './components/LocationView/LocationView.tsx';
 
 function App() {
-    const [testData, setTestData] = useState<DocumentData>();
-    const service = new DataService();
-
-    useEffect(() => {
-        const getData = async () => {
-            const _data = await service.getAllMeds();
-            setTestData(_data);
-        };
-        getData();
-    }, []);
-
     return (
-        <>
-            <div>Test</div>
-            <ul>{testData && testData.map((d) => <li key={d.id}>{d.name}</li>)}</ul>
-        </>
+        <div className={classes.wrapper}>
+            <LocationView location={0} />
+        </div>
     );
 }
 
