@@ -18,7 +18,6 @@ const LocationView: React.FC = (): JSX.Element => {
 
         const fetchMeds = async (): Promise<void> => {
             const res = await service.getAllMeds();
-            console.log(currentMeds, typeof currentLocation);
             setCurrentMeds(res.filter((r) => r.location === Number(currentLocation)));
 
             // setCurrentMeds(res);
