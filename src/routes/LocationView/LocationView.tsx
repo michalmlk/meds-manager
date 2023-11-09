@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataService } from '../../DataService';
 import { DocumentData } from 'firebase/firestore';
-import Bar from '../Bar/Bar';
+import Bar from '../../components/Bar/Bar';
 import ItemsList from './components/ItemsList/ItemsList';
 import classes from './LocationView.module.scss';
 

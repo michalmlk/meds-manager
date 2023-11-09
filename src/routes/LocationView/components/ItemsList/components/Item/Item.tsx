@@ -1,7 +1,7 @@
 import React from 'react';
 import { DocumentData } from 'firebase/firestore';
 import classes from './Item.module.scss';
-import Button from '../../../../../UI/Button/Button';
+import Button from '../../../../../../components/UI/Button/Button';
 import { faTimes, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 const Item: React.FC<DocumentData> = (props): JSX.Element => {

@@ -1,10 +1,8 @@
-import { initializeApp } from 'firebase/app';
 import { DocumentData, collection, getDocs, getFirestore } from 'firebase/firestore';
-import { firebaseConfig } from '../config';
+import { app } from './providers/AuthProvider';
 
 export class DataService {
-    private app = initializeApp(firebaseConfig);
-    private db = getFirestore(this.app);
+    private db = getFirestore(app);
 
     async getAllMeds() {
         const data: Array<DocumentData> = [];
