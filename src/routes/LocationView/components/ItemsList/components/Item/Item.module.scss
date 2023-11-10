@@ -1,0 +1,36 @@
+.wrapper {
+    background-color: var(--color-background-card);
+    width: 100%;
+    max-width: calc(540px - 3rem);
+    padding: 1.5rem;
+    border-radius: var(--box-border-radius);
+    color: #1d1d1d;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        .buttons {
+            display: flex;
+            gap: 1rem;
+        }
+    }
+
+    h1 {
+        font-weight: normal;
+        margin: 0;
+    }
+
+    .details {
+        p {
+            margin: 0;
+            font-weight: lighter;
+        }
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}

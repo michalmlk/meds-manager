@@ -1,0 +1,38 @@
+.button {
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    gap: 0.2rem;
+    padding: 0 10px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.1s ease;
+
+    &.primary {
+        background-color: var(--color-accent-green);
+
+        &:hover {
+            background-color: var(--color-accent-green--hover);
+        }
+    }
+
+    &.secondary {
+        background-color: var(--color-accent-blue);
+
+        &:hover {
+            background-color: var(--color-accent-blue--hover);
+        }
+    }
+
+    &.danger {
+        background-color: var(--color-danger);
+
+        &:hover {
+            background-color: var(--color-danger--hover);
+        }
+    }
+}
