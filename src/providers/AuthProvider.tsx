@@ -3,6 +3,7 @@ import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../config.ts';
+import { useNavigate } from 'react-router-dom';
 
 type AuthContextType = {
     userData: {};

@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        justify-content: space-between;
+        align-items: center;
+
+        h1 {
+            font-weight: normal;
+            color: #000;
+        }
+
+        background-color: var(--color-background-card);
+        width: 320px;
+        height: 320px;
+        border-radius: var(--box-border-radius);
+
+        button {
+            width: 120px;
+        }
+    }
+}

@@ -6,13 +6,15 @@ import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } 
 import { AuthProvider } from './providers/AuthProvider.tsx';
 import LocationView from './routes/LocationView/LocationView.tsx';
 import { ProtectedRoute } from './helpers/ProtectedRoute.tsx';
+import Login from './routes/Login/Login.tsx';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<App />}>
-            <Route path="meds" element={<ProtectedRoute />}>
-                <Route index element={<LocationView />} />
+            <Route element={<ProtectedRoute />}>
+                <Route path="/meds" element={<LocationView />} />
             </Route>
+            <Route path="/login" element={<Login />} />
         </Route>
     )
 );

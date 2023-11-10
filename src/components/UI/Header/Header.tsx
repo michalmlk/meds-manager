@@ -2,11 +2,21 @@ import React from 'react';
 import classes from './Header.module.scss';
 import Button from '../Button/Button';
 import { NavLink } from 'react-router-dom';
-import { faSignIn, faSignOut } from '@fortawesome/free-solid-svg-icons';
+import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../../../hooks/useAuth';
 
-const Header: React.FC = () => {
-    const { userData, handleSignIn, handleLogout } = useAuth();
+const Header: React.FC<{ onRedirect: (path: string) => void }> = ({ onRedirect }) => {
+    const { userData, handleLogout } = useAuth();
+
+    const logoutHandler = async (): Promise<void> => {
+        try {
+            await handleLogout();
+            onRedirect('/login');
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
+
     return (
         <div className={classes.wrapper}>
             <div className={classes.details}>
@@ -21,11 +31,7 @@ const Header: React.FC = () => {
                 </div>
             )}
             <div className={classes.buttons}>
-                {userData ? (
-                    <Button icon={faSignOut} onClick={handleLogout} label="Sign out" severity="secondary" />
-                ) : (
-                    <Button icon={faSignIn} onClick={handleSignIn} severity="secondary" />
-                )}
+                {userData && <Button icon={faSignOut} onClick={logoutHandler} label="Sign out" severity="secondary" />}
             </div>
         </div>
     );
