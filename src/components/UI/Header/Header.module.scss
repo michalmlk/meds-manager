@@ -8,9 +8,25 @@
     padding: 0 1rem;
     color: #000;
 
-    h1 {
-        font-size: 1.4rem;
-        font-weight: normal;
+    .details {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        h1 {
+            font-size: 1.4rem;
+            font-weight: normal;
+        }
+
+        .avatar {
+            display: flex;
+            width: 40px;
+            height: 40px;
+
+            img {
+                border-radius: 100px;
+            }
+        }
     }
 
     .buttons {

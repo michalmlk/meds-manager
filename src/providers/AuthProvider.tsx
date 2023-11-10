@@ -1,18 +1,30 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
-import { firebaseConfig } from '../../config';
-import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../../config.ts';
 
-const AuthContext = createContext({});
+type AuthContextType = {
+    userData: {};
+    handleSignIn: () => void;
+    handleLogout: () => void;
+};
+
+export const AuthContext = createContext<AuthContextType>({
+    userData: {},
+    handleSignIn: () => {},
+    handleLogout: () => {},
+});
+
 export const app = initializeApp(firebaseConfig);
+
 const provider = new GoogleAuthProvider();
 const auth = getAuth(app);
 
-export const AuthProvider: React.FC = ({ children }): JSX.Element => {
+export const AuthProvider: React.FC<{ children: React.ReactElement[] }> = ({ children }): JSX.Element => {
     const [userData, setUserData] = useState<any>(null);
 
+    //method to authorize user after initialize application
     onAuthStateChanged(auth, (user) => {
         if (user) {
             setUserData(user);
@@ -48,14 +60,4 @@ export const AuthProvider: React.FC = ({ children }): JSX.Element => {
             {children}
         </AuthContext.Provider>
     );
-};
-
-export const useAuth = () => {
-    const auth = useContext(AuthContext);
-
-    if (!auth) {
-        throw new Error('useAuth needs to be in child of AuthProvider');
-    }
-
-    return auth;
 };

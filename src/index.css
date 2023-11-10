@@ -2,6 +2,11 @@
     --color-accent-green: #75ff2b;
     --color-danger: #fa5656;
     --color-accent-blue: rgb(151, 186, 255);
+
+    --color-accent-green--hover: #5cc922;
+    --color-danger--hover: #ba3d3d;
+    --color-accent-blue--hover: rgb(119, 155, 227);
+
     --color-background-card: rgb(243, 245, 246);
     --color-background: rgb(229, 231, 233);
     --box-border-radius: 15px;

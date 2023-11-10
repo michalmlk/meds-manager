@@ -13,7 +13,7 @@ type ButtonProps = {
 const Button: React.FC<ButtonProps> = ({ icon, label, severity, outlined, onClick }) => {
     return (
         <button onClick={onClick} className={`${classes.button} ${classes[severity]} ${outlined && 'outlined'}`}>
-            {icon ? <FontAwesomeIcon icon={icon} /> : label}
+            {icon && <FontAwesomeIcon icon={icon} />} {label}
         </button>
     );
 };
