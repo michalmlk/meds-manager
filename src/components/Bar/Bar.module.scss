@@ -1,13 +1,15 @@
 .bar {
+    // box-sizing: border-box;
     height: 80px;
     display: flex;
+    width: 100%;
+    max-width: calc(540px + 3rem);
     align-items: center;
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 1rem;
     border-radius: var(--box-border-radius);
-    background-color: var(--color-background-card);
-    box-shadow: var(--card-box-shadow-neutral);
-
+    border: 1px solid var(--color-border);
+    box-sizing: border-box;
     h1 {
         margin: 0;
         color: #000;

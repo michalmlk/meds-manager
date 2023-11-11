@@ -6,7 +6,7 @@ import ItemsList from './components/ItemsList/ItemsList';
 import classes from './LocationView.module.scss';
 
 const LocationView: React.FC = (): JSX.Element => {
-    const [currentLocation, setCurrentLocation] = useState<number>(1);
+    const [currentLocation, setCurrentLocation] = useState<number>(0);
     const [currentMeds, setCurrentMeds] = useState<DocumentData[]>();
     const [locs, setLocs] = useState<DocumentData>();
     const service = new DataService();
@@ -19,21 +19,22 @@ const LocationView: React.FC = (): JSX.Element => {
         const fetchMeds = async (): Promise<void> => {
             const res = await service.getAllMeds();
             setCurrentMeds(res.filter((r) => r.location === Number(currentLocation)));
-
-            // setCurrentMeds(res);
         };
         fetchMeds();
         fetchLocalisations();
+        //eslint-disabled-next-line
     }, [currentLocation]);
 
-    const handleLocationChange = (e: any): void => {
+    const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         setCurrentLocation(Number(e.target.value));
     };
 
     return (
         <div className={classes.wrapper}>
             <Bar locations={locs} onChange={handleLocationChange} />
-            <div className={classes.content}>{currentMeds && <ItemsList items={currentMeds} />}</div>
+            <div className={classes.content}>
+                {currentMeds && <ItemsList items={currentMeds} />}
+            </div>
         </div>
     );
 };
