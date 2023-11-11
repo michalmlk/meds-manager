@@ -22,7 +22,7 @@ const LocationView: React.FC = (): JSX.Element => {
         };
         fetchMeds();
         fetchLocalisations();
-        //eslint-disabled-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentLocation]);
 
     const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
