@@ -15,12 +15,11 @@ type ContentProps = {
     onClose: () => void;
 };
 
-const Content: React.FC<ContentProps> = ({ children, title, onConfirm, onClose }): JSX.Element => {
+const Content: React.FC<ContentProps> = ({ title, onConfirm, onClose, children }): JSX.Element => {
     return (
         <div className={classes.modal}>
             <div className={classes.header}>{title}</div>
             {children}
-            <h1>Hello</h1>
             <div className={classes.footer}>
                 <Button onClick={onClose} severity="secondary" icon={faTimes} label="Close" />
                 <Button onClick={onConfirm} severity="primary" icon={faPlus} label="Add" />
@@ -31,12 +30,12 @@ const Content: React.FC<ContentProps> = ({ children, title, onConfirm, onClose }
 
 type ModalProps = {
     title: string;
-    content: ReactElement[];
+    children: ReactElement | ReactElement[];
     onConfirm: () => void;
     onClose: () => void;
 };
 
-const Modal: React.FC<ModalProps> = ({ title, content, onConfirm, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ title, onConfirm, onClose, children }) => {
     return (
         <>
             {createPortal(
@@ -45,7 +44,7 @@ const Modal: React.FC<ModalProps> = ({ title, content, onConfirm, onClose }) => 
             )}
             {createPortal(
                 <Content
-                    children={content}
+                    children={children}
                     title={title}
                     onClose={onClose}
                     onConfirm={onConfirm}

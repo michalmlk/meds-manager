@@ -4,6 +4,7 @@ import { DocumentData } from 'firebase/firestore';
 import Button from '../UI/Button/Button';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../UI/Modal/Modal';
+import AddItemForm from '../AddItemForm/AddItemForm';
 
 type BarProps = {
     locations: DocumentData | undefined;
@@ -26,10 +27,11 @@ const Bar: React.FC<BarProps> = ({ locations, onChange }): JSX.Element => {
             {isModalOpen && (
                 <Modal
                     title="Add item"
-                    content={[]}
                     onConfirm={() => console.log('ok')}
                     onClose={handleModalClose}
-                />
+                >
+                    <AddItemForm locations={locations} />
+                </Modal>
             )}
             <h1>Med assist</h1>
             <Button icon={faPlus} severity="primary" onClick={handleModalOpen} />
