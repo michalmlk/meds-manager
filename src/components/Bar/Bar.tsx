@@ -9,6 +9,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { DataService } from '../../DataService';
 import { v4 as uuidv4 } from 'uuid';
 import { useAuth } from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 type BarProps = {
     locations: DocumentData | undefined;
@@ -17,6 +18,7 @@ type BarProps = {
 
 const Bar: React.FC<BarProps> = ({ locations, onChange }): JSX.Element => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [error, setError] = useState('');
     const { userData } = useAuth();
     const service = new DataService();
 
@@ -29,20 +31,38 @@ const Bar: React.FC<BarProps> = ({ locations, onChange }): JSX.Element => {
     };
 
     const handleAddItem = async (formValues: any): Promise<void> => {
-        const itemId = uuidv4();
-        await setDoc(doc(service.db, 'ownedMeds', itemId), {
-            ...formValues,
-            location: parseInt(formValues.location),
-            id: itemId,
-            userId: userData.uid,
-        });
-        handleModalClose();
+        if (formValues.name !== '') {
+            const itemId = uuidv4();
+            const toastId = toast.loading('Creating item...');
+            try {
+                await setDoc(doc(service.db, 'ownedMeds', itemId), {
+                    ...formValues,
+                    location: parseInt(formValues.location),
+                    id: itemId,
+                    userId: userData.uid,
+                });
+                toast.success('Item successfully added.');
+                handleModalClose();
+            } catch (e) {
+                toast.error('Error when creation item.');
+            }
+            toast.dismiss(toastId);
+        } else {
+            toast.error('Please enter item name.');
+        }
     };
 
     return (
         <div className={classes.bar}>
             {isModalOpen && (
-                <Modal title="Add item" onClose={handleModalClose} renderFooter={false}>
+                <Modal
+                    title="Add item"
+                    onClose={handleModalClose}
+                    renderFooter={false}
+                    confirmIcon={faPlus}
+                    confirmLabel="Add"
+                    confirmSeverity="primary"
+                >
                     <AddItemForm
                         locations={locations!}
                         onSubmit={handleAddItem}
@@ -60,6 +80,7 @@ const Bar: React.FC<BarProps> = ({ locations, onChange }): JSX.Element => {
                         </option>
                     ))}
             </select>
+            <div>{error}</div>
         </div>
     );
 };

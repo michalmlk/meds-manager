@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { DocumentData } from 'firebase/firestore';
 import classes from './Item.module.scss';
 import Button from '../../../../../../components/UI/Button/Button';
-import { faTimes, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { doc, deleteDoc, getFirestore } from 'firebase/firestore';
 import Modal from '../../../../../../components/UI/Modal/Modal';
+import { toast } from 'react-toastify';
 
 const Item: React.FC<DocumentData> = (props): JSX.Element => {
     const { amount, inPack, name, perDay, id } = props;
@@ -15,7 +16,14 @@ const Item: React.FC<DocumentData> = (props): JSX.Element => {
     const db = getFirestore();
 
     const handleItemDelete = async (): Promise<void> => {
-        await deleteDoc(doc(db, 'ownedMeds', id));
+        const toastId = toast.loading('Removing item...');
+        try {
+            await deleteDoc(doc(db, 'ownedMeds', id));
+            toast.success('Item successfully deleted');
+        } catch (e) {
+            toast.error('Failed to delete item.');
+        }
+        toast.dismiss(toastId);
     };
 
     return (
@@ -26,6 +34,9 @@ const Item: React.FC<DocumentData> = (props): JSX.Element => {
                     onConfirm={handleItemDelete}
                     onClose={handleModalClose}
                     renderFooter={true}
+                    confirmIcon={faTrash}
+                    confirmLabel="Delete"
+                    confirmSeverity="danger"
                 >
                     <p>Are you sure you want to delete item {name} ?</p>
                 </Modal>
