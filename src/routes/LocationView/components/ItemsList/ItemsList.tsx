@@ -8,12 +8,14 @@ type ItemsListProps = {
 };
 
 const ItemsList: React.FC<ItemsListProps> = ({ items }): JSX.Element => {
-    return (
+    return items.length ? (
         <div className={classes.wrapper}>
             {items.map((item) => (
                 <Item key={item.id} {...item} />
             ))}
         </div>
+    ) : (
+        <h1>No items</h1>
     );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataService } from '../../DataService';
-import { DocumentData, collection, getFirestore, onSnapshot } from 'firebase/firestore';
+import { DocumentData, collection, onSnapshot } from 'firebase/firestore';
 import Bar from '../../components/Bar/Bar';
 import ItemsList from './components/ItemsList/ItemsList';
 import classes from './LocationView.module.scss';
@@ -15,7 +15,6 @@ const LocationView: React.FC = (): JSX.Element => {
         const res = await service.getAllMeds();
         setCurrentMeds(res.filter((r) => r.location === Number(currentLocation)));
     };
-    const db = getFirestore();
 
     useEffect(() => {
         const fetchLocalisations = async (): Promise<void> => {
@@ -28,19 +27,18 @@ const LocationView: React.FC = (): JSX.Element => {
     }, [currentLocation]);
 
     useEffect(() => {
-        const meds = collection(db, 'ownedMeds');
+        const meds = collection(service.db, 'ownedMeds');
         const unsubscribe = onSnapshot(meds, async () => {
             const freshMeds = await service.getAllMeds();
             setCurrentMeds(freshMeds.filter((r) => r.location === Number(currentLocation)));
         });
 
         return () => unsubscribe();
-    }, [db]);
+    }, [service.db]);
 
     const handleLocationChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
         setCurrentLocation(Number(e.target.value));
     };
-
     return (
         <div className={classes.wrapper}>
             <Bar locations={locs} onChange={handleLocationChange} />

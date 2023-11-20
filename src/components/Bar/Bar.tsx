@@ -18,7 +18,7 @@ type BarProps = {
 const Bar: React.FC<BarProps> = ({ locations, onChange }): JSX.Element => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { userData } = useAuth();
-    const dataService = new DataService();
+    const service = new DataService();
 
     const handleModalOpen = () => {
         setIsModalOpen(true);
@@ -29,10 +29,11 @@ const Bar: React.FC<BarProps> = ({ locations, onChange }): JSX.Element => {
     };
 
     const handleAddItem = async (formValues: any): Promise<void> => {
-        await setDoc(doc(dataService.db, 'ownedMeds', `med-${uuidv4()}`), {
+        const itemId = uuidv4();
+        await setDoc(doc(service.db, 'ownedMeds', itemId), {
             ...formValues,
             location: parseInt(formValues.location),
-            id: uuidv4(),
+            id: itemId,
             userId: userData.uid,
         });
         handleModalClose();
