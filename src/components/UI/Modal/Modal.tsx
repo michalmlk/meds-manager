@@ -9,21 +9,30 @@ const Backdrop: React.FC<{ onClick: () => void }> = ({ onClick }): JSX.Element =
 };
 
 type ContentProps = {
-    children: ReactElement[];
+    children: ReactElement | ReactElement[];
     title: string;
-    onConfirm: () => void;
-    onClose: () => void;
+    renderFooter: boolean;
+    onConfirm?: () => void;
+    onClose?: () => void;
 };
 
-const Content: React.FC<ContentProps> = ({ title, onConfirm, onClose, children }): JSX.Element => {
+const Content: React.FC<ContentProps> = ({
+    title,
+    onConfirm,
+    onClose,
+    children,
+    renderFooter,
+}): JSX.Element => {
     return (
         <div className={classes.modal}>
             <div className={classes.header}>{title}</div>
             {children}
-            <div className={classes.footer}>
-                <Button onClick={onClose} severity="secondary" icon={faTimes} label="Close" />
-                <Button onClick={onConfirm} severity="primary" icon={faPlus} label="Add" />
-            </div>
+            {renderFooter && (
+                <div className={classes.footer}>
+                    <Button onClick={onClose} severity="secondary" icon={faTimes} label="Close" />
+                    <Button onClick={onConfirm} severity="primary" icon={faPlus} label="Add" />
+                </div>
+            )}
         </div>
     );
 };
@@ -31,11 +40,12 @@ const Content: React.FC<ContentProps> = ({ title, onConfirm, onClose, children }
 type ModalProps = {
     title: string;
     children: ReactElement | ReactElement[];
-    onConfirm: () => void;
+    renderFooter: boolean;
+    onConfirm?: () => void;
     onClose: () => void;
 };
 
-const Modal: React.FC<ModalProps> = ({ title, onConfirm, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ title, onConfirm, onClose, children, renderFooter }) => {
     return (
         <>
             {createPortal(
@@ -48,6 +58,7 @@ const Modal: React.FC<ModalProps> = ({ title, onConfirm, onClose, children }) =>
                     title={title}
                     onClose={onClose}
                     onConfirm={onConfirm}
+                    renderFooter={renderFooter}
                 />,
                 document.getElementById('modal-root')!
             )}

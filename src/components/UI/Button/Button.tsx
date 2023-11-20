@@ -8,11 +8,23 @@ type ButtonProps = {
     severity: 'primary' | 'secondary' | 'danger';
     outlined?: boolean;
     onClick?: () => void;
+    type?: 'submit' | 'button';
 };
 
-const Button: React.FC<ButtonProps> = ({ icon, label, severity, outlined, onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+    icon,
+    label,
+    severity,
+    outlined,
+    onClick,
+    type = 'button',
+}) => {
     return (
-        <button onClick={onClick} className={`${classes.button} ${classes[severity]} ${outlined && 'outlined'}`}>
+        <button
+            onClick={onClick}
+            className={`${classes.button} ${classes[severity]} ${outlined && 'outlined'}`}
+            type={type}
+        >
             {icon && <FontAwesomeIcon icon={icon} />} {label}
         </button>
     );
